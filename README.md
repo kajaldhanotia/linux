@@ -17,21 +17,26 @@ I worked with Kajal for this assignment. On my machine, I edited the vmx.c file 
 4. If they are already present remove them using ```rmmod kvm``` and ```rmmod kvm_intel``` commands.<br>
 5. Run ```modprobe kvm``` and ```modprobe kvm_intel``` commands to reload edited kvm modules.<br>
   
-6. Optional- We installed GUI for out Ubuntu host for a friendly UI and ease fo work. Also, we wanted to use Virtual machine manager to created the nested VM. GUI can be enabled on Ubuntu VM using below commands:<br>
-
-```$ sudo apt-get install gnome-shell``` <br>
-```$ sudo apt-get install ubuntu-gnome-desktop``` <br>
-```$ sudo apt-get install autocutsel``` <br>
-```$ sudo apt-get install gnome-core``` <br>
-```$ sudo apt-get install gnome-panel``` <br>
-```$ sudo apt-get install gnome-themes-standard``` <br>
+6. Optional- We installed GUI for out Ubuntu host for a friendly UI and ease fo work. Also, we wanted to use Virtual machine manager to created the nested VM. GUI can be enabled on Ubuntu VM using below commands:(<a href="https://subscription.packtpub.com/book/big-data-and-business-intelligence/9781788474221/1/ch01lvl1sec15/installing-and-configuring-ubuntu-desktop-for-google-cloud-platform">ref</a>)<br>
+  ```$ sudo apt-get install gnome-shell``` <br>
+  ```$ sudo apt-get install ubuntu-gnome-desktop``` <br>
+  ```$ sudo apt-get install autocutsel``` <br>
+  ```$ sudo apt-get install gnome-core``` <br>
+  ```$ sudo apt-get install gnome-panel``` <br>
+  ```$ sudo apt-get install gnome-themes-standard``` <br> 
   
-7. Login to the host VM using RDP to have graphical interface.<br> 
-8. To enable the kvm module in the host and install necessary packages, run the below commands:
+7. Install xrdp through the below commands- we need this to be able to access Ubuntu in GUI mode.<br>
+  ```sudo apt-get update``` <br>
+  ```sudo apt-get install -y xrdp``` <br>
+  ```sudo apt-get install -y xfce4``` <br>
+  ```sudo service xrdp restart``` <br>
+
+8. Login to the host VM using RDP to have graphical interface.<br> 
+9. To enable the kvm module in the host and install necessary packages, run the below commands from host terminal: (<a href="https://www.tecmint.com/install-kvm-on-ubuntu/">ref</a>) <br>
   ```sudo apt install qemu qemu-kvm qemu-system qemu-utils```
-  ```sudo apt install libvirt-clients libvirt-daemon-system virtinst```
-9. Reboot the VM for changes to take place.<br>
-10. Create necessary directories in the host and download ISO file for the guest VM. We followed steps from this source-https://linuxhint.com/install_kvm_ubuntu-2/<br>
-11. Create a nested VM using ```virt-install``` command and pass the necessary parameters. We used the below command- our ISO file was stored in /kvm/iso folder.<br>
-  ``` virt-install --name nested --ram=4096 --vcpus=2 --cpu host --hvm --disk path=/var/lib/libvirt/images/ubuntu-16.04-vm1,size=8 --cdrom kvm/iso/ubuntu-20.04.3-desktop-amd64.iso --graphics vnc ```
- 
+  ```sudo apt install libvirt-clients libvirt-daemon-system virtinst``` 
+10. Run Virtual Machine Manager and create a new VM inside the host. (download the iso file or guest VM as a prerequisite)<br>
+11. Install Guest OS once the VM is created and login to the nested VM.<br>
+12. Install CPUID using ``` sudo apt install cpuid ``` if it is an Ubuntu VM <br>  
+13. Run the command ```cpuid -l 0x4FFFFFFF``` to get the verify output.<br>
+14. Run the test.sh script to produce results and print number of exits.<br>
