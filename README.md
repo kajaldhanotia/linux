@@ -4,7 +4,7 @@
 <h2>Assignment-02-Instrumentation via hypercall</h2>
 
 <h3>Work done by Kajal (015210884):</h3>
-We began working on the assignment 02 once our assignment 01 environment was built successfully. We decided to edit the cpuid.c and vmx.c at first and then rebuild the kernel. I edited the cpuid.c and added if..else condition in the kvm_emulate_cpuid block code and commited it to the GitHub repo inside /arch/x86/kvm. After Sumemet commited the changes he made to vmx.c, I rebuilt the kernel and rebooted the VM. I also installed KVM on the hypervisor so that a guest VM can be created and test script can be executed on that.  <br>
+We began working on the assignment 02 once our assignment 01 environment was built successfully. We decided to edit the cpuid.c and vmx.c at first and then rebuild the kernel. I edited the cpuid.c and added if..else condition in the kvm_emulate_cpuid block code and commited it to the GitHub repo inside /arch/x86/kvm. After Sumeet commited the changes he made to vmx.c, I rebuilt the kernel and rebooted the VM. I also installed KVM on the hypervisor so that a guest VM can be created and test script can be executed on that.  <br>
   
 <h3>Work done by Sumeet (015252003):</h3>
 I worked with Kajal for this assignment. On my machine, I edited the vmx.c file according to the edits made in cpuid.c by Kajal. I pushed the changes to GitHub. I then tried to rebuild the kernel. There were some errors encountered while rebuilding the kernel so we decided to start from scratch for assignment 02. After rebuilding the kernel, I also installed gnome on ubuntu host so that we could work with GUI and work on virtual machine manager. I then worked with Kajal to help create the nested VM.  <br>
