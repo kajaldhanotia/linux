@@ -1313,7 +1313,6 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 		}
 		else if(ecx==3 || ecx==4 || ecx==5 || ecx==6 || ecx==11 || ecx==16 || ecx==17 || ecx==33 || ecx==34 || ecx==51 || ecx==54 || ecx==63 || ecx==64 || ecx==66 || ecx==67 || ecx==68){
 				printk(KERN_INFO"exit reason number =%u not enabled in KVM",ecx);
-				eax=atomic_read(&exitsPerReason[(int)ecx]);
 				eax=ebx=ecx=edx=0;
 			}
 		else{
