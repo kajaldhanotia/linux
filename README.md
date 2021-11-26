@@ -4,10 +4,10 @@
 <h2>Assignment-02-Instrumentation via hypercall</h2>
 
 <h3>Work done by Kajal (015210884):</h3>
-We began working on the assignment 02 once our assignment 01 environment was built successfully. We decided to edit the cpuid.c and vmx.c at first and then rebuild the kernel. I edited the cpuid.c and added if..else condition in the kvm_emulate_cpuid block code and commited it to the GitHub repo inside /arch/x86/kvm. After Sumemet commited the changes he made to vmx.c, I rebuilt the kernel and rebooted the VM. I also installed KVM on the hypervisor so that a guest VM can be created using virt-manager.  <br>
+We began working on the assignment 02 once our assignment 01 environment was built successfully. We decided to edit the cpuid.c and vmx.c at first and then rebuild the kernel. I edited the cpuid.c and added if..else condition in the kvm_emulate_cpuid block code and commited it to the GitHub repo inside /arch/x86/kvm. After Sumeet commited the changes he made to vmx.c, I rebuilt the kernel and rebooted the VM. I also installed KVM on the hypervisor so that a guest VM can be created and test script can be executed on that.  <br>
   
 <h3>Work done by Sumeet (015252003):</h3>
-I worked with Kajal for this assignment. On my machine, I edited the vmx.c file according to the edits made in cpuid.c by Kajal. I pushed the changes to GitHub. I then tried to rebuild the kernel. There were some errors encountered while rebuilding the kernel which I eventually resolved. I also installed gnome on ubuntu host so that we could work with GUI and work on virtual machine manager. I then worked with Kajal to help create the nested VM.  <br>
+I worked with Kajal for this assignment. On my machine, I edited the vmx.c file according to the edits made in cpuid.c by Kajal. I pushed the changes to GitHub. I then tried to rebuild the kernel. There were some errors encountered while rebuilding the kernel so we decided to start from scratch for assignment 02. After rebuilding the kernel, I also installed gnome on ubuntu host so that we could work with GUI and work on virtual machine manager. I then worked with Kajal to help create the nested VM.  <br>
 
 <h3>Steps followed:</h3>
   
@@ -38,5 +38,38 @@ I worked with Kajal for this assignment. On my machine, I edited the vmx.c file 
 10. Run Virtual Machine Manager and create a new VM inside the host. (download the iso file or guest VM as a prerequisite)<br>
 11. Install Guest OS once the VM is created and login to the nested VM.<br>
 12. Install CPUID using ``` sudo apt install cpuid ``` if it is an Ubuntu VM <br>  
-13. Run the command ```cpuid -l 0x4FFFFFFF``` to get the verify output.<br>
-14. Run the test.sh script to produce results and print number of exits.<br>
+13. Run the command ```cpuid -l 0x4FFFFFFF``` to verify the output.<br>
+14. Run the test bash script to produce results and print number of exits.<br>
+15. Run the test2 bash script to produce number of cycles in ebx and ecx registers when eax=0x4ffffffe.<br>
+
+<h3>Output Screenshots:</h3>
+<ul>
+<li>Output screen that verifies that kvm is installed on Ubuntu host.<br>
+  
+  ![image](https://user-images.githubusercontent.com/89494219/142976711-117f65f3-75ad-407e-9132-e9dd0c094fd6.png)
+<br>
+  
+<li>Output screen that shows nested VM created on KVM Host:<br>
+  
+  ![image](https://user-images.githubusercontent.com/89494219/142977493-ea58632d-4b90-4836-a7da-311dea1c3184.png)
+  
+  <br>
+
+  ![image](https://user-images.githubusercontent.com/89494219/142977561-3eb6f60e-07d5-4b62-9270-ba2a0dd50086.png)
+  
+  <br>
+  
+  <li>Output screen that shows number of exits when eax=0x4fffffff:<br>
+
+  ![image](https://user-images.githubusercontent.com/89494219/142977843-5bcd7169-33d6-41da-9c53-4a7ae8dca34f.png)
+
+  <br>
+    
+  <li>Output screen that shows cycles spent when eax=0x4ffffffe:<br>
+    
+ ![image](https://user-images.githubusercontent.com/89494219/142978056-a00ec5ca-aaa8-44fa-9b59-e6bfc8a793ae.png)
+
+
+  <br>
+  
+ 
