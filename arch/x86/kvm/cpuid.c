@@ -1266,10 +1266,13 @@ bool kvm_cpuid(struct kvm_vcpu *vcpu, u32 *eax, u32 *ebx,
 EXPORT_SYMBOL_GPL(kvm_cpuid);
 atomic_t numberOfExits = ATOMIC_INIT(0);
 atomic64_t timeTaken = ATOMIC_INIT(0);
+atomic_t exitsPerReason[69];
+
 
 
 EXPORT_SYMBOL(numberOfExits);
 EXPORT_SYMBOL(timeTaken);
+EXPORT_SYMBOL(exitsPerReason);
 
 int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 {
@@ -1287,6 +1290,7 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 
 	}
 
+
 	else if (eax == 0x4ffffffe){
 		printk (KERN_INFO "CPUID(0x4FFFFFFE), exit number =");
 		ebx = (atomic64_read(&timeTaken) >> 32);
@@ -1294,6 +1298,32 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 		ecx = (atomic64_read(&timeTaken));
 		printk(KERN_INFO "Lower 32-bits-ECX %u",ecx);
 	}
+
+
+	else if(eax == 0x4ffffffd)
+        {
+		
+		//reasons not in SDM
+		if(ecx==35 || ecx==38 || ecx==42 || ecx==65 || ecx>68 || ecx<0){
+			printk(KERN_INFO "exit reason number = %u not defined by SDM",ecx);
+			eax=0;
+			ebx=0;
+			ecx=0;
+			edx=0xffffffff;
+		}
+		else if(ecx==3 || ecx==4 || ecx==5 || ecx==6 || ecx==11 || ecx==16 || ecx==17 || ecx==33 || ecx==34 || ecx==51 || ecx==54 || ecx==63 || ecx==64 || ecx==66 || ecx==67 || ecx==68){
+				printk(KERN_INFO"exit reason number =%u not enabled in KVM",ecx);
+				eax=atomic_read(&exitsPerReason[(int)ecx]);
+				eax=ebx=ecx=edx=0;
+			}
+		else{
+				printk(KERN_INFO"exit reason number %u is present in SDM",ecx);
+				eax=atomic_read(&exitsPerReason[(int)ecx]);
+				ebx=ecx=edx=0;
+			}
+		}
+	
+				
 
 	else{
 	kvm_cpuid(vcpu, &eax, &ebx, &ecx, &edx, false);

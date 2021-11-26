@@ -5864,6 +5864,7 @@ void dump_vmcs(struct kvm_vcpu *vcpu)
  */
 extern atomic_t numberOfExits;
 extern atomic64_t timeTaken;
+extern atomic_t exitsPerReason[69]; 
 
 static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 {
@@ -6062,6 +6063,7 @@ static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 		goto unexpected_vmexit;
 
 	end_time = rdtsc();
+	atomic_inc(&exitsPerReason[(int)exit_handler_index]);
         atomic64_fetch_add(end_time - start_time, &timeTaken);
 	return kvm_vmx_exit_handlers[exit_handler_index](vcpu);
 
