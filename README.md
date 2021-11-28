@@ -74,11 +74,14 @@ I worked with Kajal for this assignment. On my machine, I edited the vmx.c file 
 <h1>Assignment-03</h1>
     
 <h3>Work done by Kajal (015210884):</h3>
+I edited the cpuid.c code block for eax=0x4ffffffd to return the number of exits for a specific exit reason and return the value in eax register. I then ran the make command again to verify output through cpuid command in neested VM and dmesg command in the host VM.
     
 <h3>Work done by Sumeet (015252003):</h3>
-    
+I edited the cpuid.c code block for eax=0x4ffffffc to return the time spent processing the exit number provided in ecx and return the high 32 bits in %ebx and low 32-bit in %ecx. I then commited this code change to the GitHub folder CMPE-283-Assignment-3.
+      
     
 <h3>Steps followed:</h3>
+1. 
      
 
 <h3>Output Screenshots:</h3>
@@ -133,6 +136,6 @@ I worked with Kajal for this assignment. On my machine, I edited the vmx.c file 
 
 <li> dmesg output for least frequent exits, here exit reason = 29<br>
   
-  ![image](https://user-images.githubusercontent.com/89494219/143723957-e02a195c-607f-4e03-b7d3-f185ff7ad33b.png)
+  ![image](https://user-images.githubusercontent.com/89494219/143723957-e02a195c-607f-4e03-b7d3-f185ff7ad33b.png) <br>
       
    
