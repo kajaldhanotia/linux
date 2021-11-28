@@ -140,6 +140,7 @@ I edited the cpuid.c code block for eax=0x4ffffffc to return the time spent proc
 7. Run dmesg in the host VM to get output. <br>                                      
                                                                   
 <h3>Output Screenshots:</h3>
+	  <p> Please excuse the 'logs' printed in between, it was due to an extra printk command. It has now been fixed in the code.</p>
 <ul>
      
 <li> Output of cpuid command in nested VM for specific exit reason when eax=0x4ffffffd.<br>
