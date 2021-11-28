@@ -81,9 +81,64 @@ I edited the cpuid.c code block for eax=0x4ffffffc to return the time spent proc
       
     
 <h3>Steps followed:</h3>
-1. 
-     
+    
+1. Run the assignment-2 environment. <br>
+    
+2. Navigate to ~/linux/arch/x86/kvm/cpuid.c and edit the code block. Put another if..else condition for when eax = 0x4ffffffd. <br>
+    
+     else if(eax == 0x4ffffffd)
+        {
 
+		//reasons not in SDM
+		if(ecx==35 || ecx==38 || ecx==42 || ecx==65 || ecx>68 || ecx<0){
+			printk(KERN_INFO "exit reason number = %u not defined by SDM",ecx);
+			eax=0;
+			ebx=0;
+			ecx=0;
+			edx=0xffffffff;
+		}
+		else if( ecx==5 || ecx==6 || ecx==11 || ecx==17 ||  ecx==35 || ecx==38 || ecx==42 || ecx==66){
+				printk(KERN_INFO"exit reason number =%u not enabled in KVM",ecx);
+				eax=ebx=ecx=edx=0;
+			}
+		else{
+				printk(KERN_INFO "CPUID(0x4ffffffd), exit number=%u exits=%d\n",ecx,arch_atomic_read(&exitsPerReason[ecx]));
+				eax=atomic_read(&exitsPerReason[(int)ecx]);
+				ebx=ecx=edx=0;
+			}
+		} 
+     
+3. Make the necessary changes in vmx.c as well (variable declarations)<br>
+4. Make changes for code block and write if..else condition for when eax = 0x4ffffffc. <br>
+    
+    else if(eax == 0x4ffffffc)
+	{
+
+		if(ecx==35 || ecx==38 || ecx==42 || ecx==65 || ecx>68 || ecx<0){
+                        printk(KERN_INFO "exit reason number = %u not defined by SDM",ecx);
+                        eax=0;
+                        ebx=0;
+                        ecx=0;
+                        edx=0xffffffff;
+                }
+                else if( ecx==5 || ecx==6 || ecx==11 || ecx==17 ||  ecx==35 || ecx==38 || ecx==42 || ecx==66){
+                                printk(KERN_INFO"exit reason number =%u not enabled in KVM",ecx);
+                                eax=ebx=ecx=edx=0;
+		}
+                                                                     
+5. Save the changes and run the below commands in order as mentioned.<br>
+    ``` sudo make -j 16 modules ```
+    ``` sudo make -j 16 ```                                                                
+    ``` sudo make INSTALL_MOD_STRIP=1 modules_install ```                                                                 
+    ``` rmmod kvm_intel ```
+    ``` rmmod kvm ```
+    ``` modprobe kvm_intel ```
+    ``` modprobe kvm ```
+                                                                     
+6. Now run the nested VM and run test script or ``` cpuid -l 0x4ffffffd -s <exit reason> ``` to verify output for different exit reasons.<br>   
+    
+7. Run dmesg in the host VM to get output. <br>                                      
+                                                                  
 <h3>Output Screenshots:</h3>
 <ul>
      
