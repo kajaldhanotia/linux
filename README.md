@@ -71,5 +71,70 @@ I worked with Kajal for this assignment. On my machine, I edited the vmx.c file 
 
 
   <br>
+    
+------------------------------------------------------------------------------------------------------
+<h2>Assignment-03</h2>
+    
+<h3>Work done by Kajal (015210884):</h3>
+    
+<h3>Work done by Sumeet (015252003):</h3>
+    
+    
+<h3>Steps followed:</h3>
+     
+
+<h3>Output Screenshots:</h3>
+    <ul>
+     
+<li> Output of cpuid command in nested VM for specific exit reason when eax=0x4ffffffd.<br>
   
- 
+![image](https://user-images.githubusercontent.com/89494219/143723386-6ba9b824-1599-46a3-9645-1d6f13554e47.png) <br>
+
+<li> Output for dmesg log showing exit count for exit reason 0.<br>
+  
+![image](https://user-images.githubusercontent.com/89494219/143723417-0f9c4232-3efb-42ce-afcf-3f8028ddeb25.png) <br>
+
+<li> Output for dmesg log showing exit count for exit reason 10.<br>
+  
+![image](https://user-images.githubusercontent.com/89494219/143723431-dd624f12-1838-4fda-9675-6bdaa978d489.png) <br>
+
+<li> Output for dmesg log showing message when exit reason is not defined by SDM.<br>
+  
+![image](https://user-images.githubusercontent.com/89494219/143723464-491c0951-3b61-4ed4-b3a9-649202e48243.png) <br>
+
+<li> Output for dmesg log showing message when exit reason is not enabled in KVM. <br>
+  
+![image](https://user-images.githubusercontent.com/89494219/143723486-daa51102-06d6-42d9-8809-a4b6fd6b4f20.png) <br>
+
+<li> Output of cpuid command for ebx(high 32-bit) and ecx(low 32-bit) values when eax=0x4ffffffc.<br>
+  
+![image](https://user-images.githubusercontent.com/89494219/143723518-03aa21cc-d68b-4b74-b793-8bd928325c25.png) <br>
+
+<li> dmesg output of cpuid command for ebx(high 32-bit) and ecx(low 32-bit) values when eax=0x4ffffffc.<br>
+  
+![image](https://user-images.githubusercontent.com/89494219/143724096-e9102625-cd83-408e-8e8a-750fae2d0f36.png) <br>
+
+
+<li> dmesg output for number of exits for exit reason=0.<br>
+  
+![image](https://user-images.githubusercontent.com/89494219/143723699-2a963076-ecf5-4733-bb82-f95cb5367439.png) <br>
+
+<li> dmesg output for number of exits for exit reason=0 after one reboot.<br>
+  
+![image](https://user-images.githubusercontent.com/89494219/143723687-e46c9dd9-ff34-455c-b36c-30be546baeb9.png) <br>
+
+<li> dmesg output for number of exits for exit reason=0 after one more reboot.<br>
+  
+![image](https://user-images.githubusercontent.com/89494219/143723714-a90837e9-1420-4908-964a-ba7eed9e6479.png) <br>
+
+
+<li> dmesg output for most frequent exits, here exit reason = 48<br>
+  
+![image](https://user-images.githubusercontent.com/89494219/143723931-64e01688-ae94-478f-8877-643dddbd8348.png) <br>
+
+
+<li> dmesg output for least frequent exits, here exit reason = 29<br>
+  
+![image](https://user-images.githubusercontent.com/89494219/143723957-e02a195c-607f-4e03-b7d3-f185ff7ad33b.png)
+      
+    </ul>
