@@ -1283,7 +1283,7 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 
 	eax = kvm_rax_read(vcpu);
 	ecx = kvm_rcx_read(vcpu);
-	printk(KERN_INFO "logs");
+
 	if (eax == 0x4fffffff){
 		eax = arch_atomic_read(&numberOfExits);
 		printk(KERN_INFO "Number of exits:%u",eax);
@@ -1302,7 +1302,7 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 
 	else if(eax == 0x4ffffffd)
         {
-		
+
 		//reasons not in SDM
 		if(ecx==35 || ecx==38 || ecx==42 || ecx==65 || ecx>68 || ecx<0){
 			printk(KERN_INFO "exit reason number = %u not defined by SDM",ecx);
@@ -1311,19 +1311,42 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 			ecx=0;
 			edx=0xffffffff;
 		}
-		else if(ecx==3 || ecx==4 || ecx==5 || ecx==6 || ecx==11 || ecx==16 || ecx==17 || ecx==33 || ecx==34 || ecx==51 || ecx==54 || ecx==63 || ecx==64 || ecx==66 || ecx==67 || ecx==68){
+		else if( ecx==5 || ecx==6 || ecx==11 || ecx==17 ||  ecx==35 || ecx==38 || ecx==42 || ecx==66){
 				printk(KERN_INFO"exit reason number =%u not enabled in KVM",ecx);
 				eax=ebx=ecx=edx=0;
 			}
 		else{
-				printk(KERN_INFO"exit reason number %u is present in SDM",ecx);
+				printk(KERN_INFO "CPUID(0x4ffffffd), exit number=%u exits=%d\n",ecx,arch_atomic_read(&exitsPerReason[ecx]));
 				eax=atomic_read(&exitsPerReason[(int)ecx]);
 				ebx=ecx=edx=0;
 			}
 		}
 	
-				
+	else if(eax == 0x4ffffffc)
+	{
 
+		if(ecx==35 || ecx==38 || ecx==42 || ecx==65 || ecx>68 || ecx<0){
+                        printk(KERN_INFO "exit reason number = %u not defined by SDM",ecx);
+                        eax=0;
+                        ebx=0;
+                        ecx=0;
+                        edx=0xffffffff;
+                }
+                else if( ecx==5 || ecx==6 || ecx==11 || ecx==17 ||  ecx==35 || ecx==38 || ecx==42 || ecx==66){
+                                printk(KERN_INFO"exit reason number =%u not enabled in KVM",ecx);
+                                eax=ebx=ecx=edx=0;
+		}
+
+		else{
+			printk(KERN_INFO "CPUID(0x4ffffffc), exits number=%u",ecx);
+			ebx = (atomic64_read(&timeTaken) >>32);
+			printk(KERN_INFO "Higher 32-bits-EBX %u",ebx);
+			ecx = (atomic64_read (&timeTaken));
+			printk(KERN_INFO "Lower 32-bits-ECX %u",ecx);
+			edx = 0;
+		}
+	}		
+	
 	else{
 	kvm_cpuid(vcpu, &eax, &ebx, &ecx, &edx, false);
 	}
