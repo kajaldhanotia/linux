@@ -88,7 +88,7 @@ I edited the cpuid.c code block for eax=0x4ffffffc to return the time spent proc
     
 2. Navigate to ~/linux/arch/x86/kvm/cpuid.c and edit the code block. Put another if..else condition for when eax = 0x4ffffffd. <br>
 	  
-	  else if(eax == 0x4ffffffd) 
+	  	else if(eax == 0x4ffffffd) 
         {
 
 		//reasons not in SDM
@@ -113,7 +113,7 @@ I edited the cpuid.c code block for eax=0x4ffffffc to return the time spent proc
 3. Make the necessary changes in vmx.c as well (variable declarations)<br>
 4. Make changes for code block and write if..else condition for when eax = 0x4ffffffc. <br>
 	  
-    else if(eax == 0x4ffffffc)
+    		else if(eax == 0x4ffffffc)
         {
 
 		if(ecx==35 || ecx==38 || ecx==42 || ecx==65 || ecx>68 || ecx<0){
@@ -144,20 +144,19 @@ I edited the cpuid.c code block for eax=0x4ffffffc to return the time spent proc
 <h3>Answer to Questions:</h3>
 	  <h4>Question-3</h4>
 	  
-We noticed that the count increased at a stable rate. Below are the screenshots for exit reason=0. The exit count is currently 12035. <br>	  
-  
- ![image](https://user-images.githubusercontent.com/89494219/143723699-2a963076-ecf5-4733-bb82-f95cb5367439.png) <br>
+We noticed that the count increased at a stable rate. Below are the screenshots for exit reason=0. The exit count is currently 12035. <br>
+	  
+![image](https://user-images.githubusercontent.com/89494219/143815197-e62e473b-7783-4ce0-a903-e9e255ebca9e.png) <br>
 		  
 We did another reboot to see the increase in count of exits. The exit count raised to 24070 which is exactly the double of what it was previously. <br>
 		  
-  ![image](https://user-images.githubusercontent.com/89494219/143723687-e46c9dd9-ff34-455c-b36c-30be546baeb9.png) <br>
+ ![image](https://user-images.githubusercontent.com/89494219/143815337-7e50ea14-6c10-45bb-b619-099a0b0c1312.png) <br>
 	  
 We did one more reboot to find tha rate of increase. The number of exits is now 36105. Which is three times of the first output. Which conculdes that the number of exits is increasing at a stable rate.<br>
 
-![image](https://user-images.githubusercontent.com/89494219/143723714-a90837e9-1420-4908-964a-ba7eed9e6479.png) <br>
+![image](https://user-images.githubusercontent.com/89494219/143815645-a9ed64b6-db66-4d8d-9140-d2d761613205.png) <br>
 	  
-For exit reason=0, the number of exits increase by approximately 12k on each boot.<br>
-	  
+For exit reason=0, the number of exits increase by approximately 12k on each boot.<br>	  
                            
 <h4>Question-4</h4>
 	  
@@ -165,7 +164,7 @@ The most frequent exits were noticed for exit reason =48.<br>
 	  
 ![image](https://user-images.githubusercontent.com/89494219/143813811-a4406c3c-54da-4f83-b9da-c1ab2f9f9987.png) <br>
 
-There were many exit reasons with 0 exits. The full dmesg output is in the test3.txt /CMPE-283-Assignment-3 folder.	  <br>
+There were many exit reasons with 0 exits (least frequent). The full dmesg output is in the test3.txt /CMPE-283-Assignment-3 folder.	  <br>
 	
 ![image](https://user-images.githubusercontent.com/89494219/143813909-fce3b21a-3902-4c67-9574-5b538c7c5ace.png) <br>
 
