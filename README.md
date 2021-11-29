@@ -42,6 +42,8 @@ I worked with Kajal for this assignment. On my machine, I edited the vmx.c file 
 14. Run the test bash script to produce results and print number of exits.<br>
 15. Run the test2 bash script to produce number of cycles in ebx and ecx registers when eax=0x4ffffffe.<br>
 
+
+
 <h3>Output Screenshots:</h3>
 <ul>
 <li>Output screen that verifies that kvm is installed on Ubuntu host.<br>
@@ -137,61 +139,47 @@ I edited the cpuid.c code block for eax=0x4ffffffc to return the time spent proc
                                                                      
 6. Now run the nested VM and run test script or ``` cpuid -l 0x4ffffffd -s <exit reason> ``` to verify output for different exit reasons.<br>   
     
-7. Run dmesg in the host VM to get output. <br>                                      
-                                                                  
-<h3>Output Screenshots:</h3>
-	  <p> Please excuse the 'logs' printed in between, it was due to an extra printk command. It has now been fixed in the code.</p>
-<ul>
-     
-<li> Output of cpuid command in nested VM for specific exit reason when eax=0x4ffffffd.<br>
+7. Run dmesg in the host VM to get output. <br>  
+	 
+<h3>Answer to Questions:</h3>
+	  <h4>Question-3</h4>
+	  
+We noticed that the count increased at a stable rate. Below are the screenshots for exit reason=0. The exit count is currently 12035. <br>	  
   
-  ![image](https://user-images.githubusercontent.com/89494219/143723386-6ba9b824-1599-46a3-9645-1d6f13554e47.png) <br>
-
-<li> Output for dmesg log showing exit count for exit reason 0.<br>
-  
-  ![image](https://user-images.githubusercontent.com/89494219/143723417-0f9c4232-3efb-42ce-afcf-3f8028ddeb25.png) <br>
-
-<li> Output for dmesg log showing exit count for exit reason 10.<br>
-  
-  ![image](https://user-images.githubusercontent.com/89494219/143723431-dd624f12-1838-4fda-9675-6bdaa978d489.png) <br>
-
-<li> Output for dmesg log showing message when exit reason is not defined by SDM.<br>
-  
-  ![image](https://user-images.githubusercontent.com/89494219/143723464-491c0951-3b61-4ed4-b3a9-649202e48243.png) <br>
-
-<li> Output for dmesg log showing message when exit reason is not enabled in KVM. <br>
-  
-  ![image](https://user-images.githubusercontent.com/89494219/143723486-daa51102-06d6-42d9-8809-a4b6fd6b4f20.png) <br>
-
-<li> Output of cpuid command for ebx(high 32-bit) and ecx(low 32-bit) values when eax=0x4ffffffc.<br>
-  
-  ![image](https://user-images.githubusercontent.com/89494219/143723518-03aa21cc-d68b-4b74-b793-8bd928325c25.png) <br>
-
-<li> dmesg output of cpuid command for ebx(high 32-bit) and ecx(low 32-bit) values when eax=0x4ffffffc.<br>
-  
-  ![image](https://user-images.githubusercontent.com/89494219/143724096-e9102625-cd83-408e-8e8a-750fae2d0f36.png) <br>
-
-
-<li> dmesg output for number of exits for exit reason=0.<br>
-  
-  ![image](https://user-images.githubusercontent.com/89494219/143723699-2a963076-ecf5-4733-bb82-f95cb5367439.png) <br>
-
-<li> dmesg output for number of exits for exit reason=0 after one reboot.<br>
-  
+ ![image](https://user-images.githubusercontent.com/89494219/143723699-2a963076-ecf5-4733-bb82-f95cb5367439.png) <br>
+		  
+We did another reboot to see the increase in count of exits. The exit count raised to 24070 which is exactly the double of what it was previously. <br>
+		  
   ![image](https://user-images.githubusercontent.com/89494219/143723687-e46c9dd9-ff34-455c-b36c-30be546baeb9.png) <br>
+	  
+We did one more reboot to find tha rate of increase. The number of exits is now 36105. Which is three times of the first output. Which conculdes that the number of exits is increasing at a stable rate.<br>
 
-<li> dmesg output for number of exits for exit reason=0 after one more reboot.<br>
+![image](https://user-images.githubusercontent.com/89494219/143723714-a90837e9-1420-4908-964a-ba7eed9e6479.png) <br>
+	  
+For exit reason=0, the number of exits increase by approximately 12k on each boot.<br>
+	  
+                           
+<h4>Question-4</h4>
+	  
+The most frequent exits were noticed for exit reason =48.<br>
+	  
+![image](https://user-images.githubusercontent.com/89494219/143813811-a4406c3c-54da-4f83-b9da-c1ab2f9f9987.png) <br>
+
+There were many exit reasons with 0 exits. The full dmesg output is in the test3.txt /CMPE-283-Assignment-3 folder.	  <br>
+	
+![image](https://user-images.githubusercontent.com/89494219/143813909-fce3b21a-3902-4c67-9574-5b538c7c5ace.png) <br>
+
+<h4>Other Output Screenshots </h4>
+
+<li> Output of cpuid command for ebx(high 32-bit) and ecx(low 32-bit) values when eax=0x4ffffffc. <br>
   
-  ![image](https://user-images.githubusercontent.com/89494219/143723714-a90837e9-1420-4908-964a-ba7eed9e6479.png) <br>
+![image](https://user-images.githubusercontent.com/89494219/143814645-9ebb21ad-a3d2-4dfa-a304-9d19ceb07f7b.png) <br>
 
 
-<li> dmesg output for most frequent exits, here exit reason = 48<br>
+<li> dmesg output of test4 script for ebx(high 32-bit) and ecx(low 32-bit) values when eax=0x4ffffffc. Full dmesg logs is in the test4.txt file in CMPE-283-Assignment-3 folder.<br>
   
-  ![image](https://user-images.githubusercontent.com/89494219/143723931-64e01688-ae94-478f-8877-643dddbd8348.png) <br>
+  ![image](https://user-images.githubusercontent.com/89494219/143814514-400258f3-5435-4c8f-8cd3-07316804589a.png) <br>
 
 
-<li> dmesg output for least frequent exits, here exit reason = 29<br>
-  
-  ![image](https://user-images.githubusercontent.com/89494219/143723957-e02a195c-607f-4e03-b7d3-f185ff7ad33b.png) <br>
-      
+
    
