@@ -180,5 +180,28 @@ There were many exit reasons with 0 exits (least frequent). The full dmesg outpu
   ![image](https://user-images.githubusercontent.com/89494219/143814514-400258f3-5435-4c8f-8cd3-07316804589a.png) <br>
 
 
+<h1>Assignment-03</h1>
 
-   
+<h3>Work done by Kajal (015210884):</h3>
+We started working on Intel instance on which Assignment 3 was finished. I worked on performance when using shadow paging to illustrate the different exit frequencies and types. I removed the kvm-intel module and reloaded with parameter ept=0 and recorded the total exit count information in shadow.txt file.(https://github.com/kajaldhanotia/linux/blob/master/CMPE-283-Assignment-4/shadow.txt)
+    
+<h3>Work done by Sumeet (015252003):</h3>
+We started working on Intel instance on which Assignment 3 was finished. I worked on performance when using nested paging to illustrate the different exit frequencies and types. I recorded the total exit count information in nested.txt file.(https://github.com/kajaldhanotia/linux/blob/master/CMPE-283-Assignment-4/nested.txt)
+	
+<h3>Question 2:</h3>
+
+<h4> With ept (Shadow Paging)</h4>
+	
+https://github.com/kajaldhanotia/linux/blob/master/CMPE-283-Assignment-4/shadow.txt
+	
+<h4> Without ept (Nested Paging)</h4>
+
+https://github.com/kajaldhanotia/linux/blob/master/CMPE-283-Assignment-4/nested.txt
+	
+<h3>Question 3:</h3>
+
+	
+
+<h3>Question 4:</h3>
+
+While comparing the values of total exit count with ept and without ept we can see the expected output. When the parameter ept=0 is changed, the exit counts of number 0 and 10 significantly increases. The reason for such significant increase is that the guest can perform the page table operations without any intervention in nested paging. So with the shadow paging, the hypervisor intervention resumes
