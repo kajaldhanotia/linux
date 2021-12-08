@@ -177,28 +177,34 @@ There were many exit reasons with 0 exits (least frequent). The full dmesg outpu
 
 <li> dmesg output of test4 script for ebx(high 32-bit) and ecx(low 32-bit) values when eax=0x4ffffffc. Full dmesg logs is in the test4.txt file in CMPE-283-Assignment-3 folder.<br>
   
-  ![image](https://user-images.githubusercontent.com/89494219/143814514-400258f3-5435-4c8f-8cd3-07316804589a.png) <br>
+![image](https://user-images.githubusercontent.com/89494219/143814514-400258f3-5435-4c8f-8cd3-07316804589a.png) <br>
 
 
 <h1>Assignment-04</h1>
 
 <h3>Work done by Kajal (015210884):</h3>
-We started working on Intel instance on which Assignment 3 was finished. I worked on performance when using shadow paging to illustrate the different exit frequencies and types. I removed the kvm-intel module and reloaded with parameter ept=0 and recorded the total exit count information in shadow.txt file.(https://github.com/kajaldhanotia/linux/blob/master/CMPE-283-Assignment-4/shadow.txt)
+We started working on GCP instance on which Assignment 3 was finished. I worked on performance when using shadow paging to illustrate the different exit frequencies and types. I removed the kvm-intel module and reloaded with parameter ept=0 and recorded the total exit count information in shadow.txt file.(https://github.com/kajaldhanotia/linux/blob/master/CMPE-283-Assignment-4/shadow.txt)
     
 <h3>Work done by Sumeet (015252003):</h3>
-We started working on Intel instance on which Assignment 3 was finished. I worked on performance when using nested paging to illustrate the different exit frequencies and types. I recorded the total exit count information in nested.txt file.(https://github.com/kajaldhanotia/linux/blob/master/CMPE-283-Assignment-4/nested.txt)
+We started working on GCP instance on which Assignment 3 was finished. I worked on performance when using nested paging to illustrate the different exit frequencies and types. I recorded the total exit count information in nested.txt file.(https://github.com/kajaldhanotia/linux/blob/master/CMPE-283-Assignment-4/nested.txt)
 	
-<h3>Question 2:</h3>
+<h3>Question 2: Include a sample of your print of exit count output from dmesg from “with ept” and “without ept”.</h3>
 
-<h4> With ept (Shadow Paging)</h4>
+<h4> Output when EPT=0 (Shadow Paging)</h4>
 	
-https://github.com/kajaldhanotia/linux/blob/master/CMPE-283-Assignment-4/shadow.txt
-	
-<h4> Without ept (Nested Paging)</h4>
+![image](https://user-images.githubusercontent.com/89494219/145184480-7823eb65-b6c2-4fb7-9111-a8f4dbf30c58.png) <br>
 
-https://github.com/kajaldhanotia/linux/blob/master/CMPE-283-Assignment-4/nested.txt
 	
-<h3>Question 3:</h3>
+See full output here: https://github.com/kajaldhanotia/linux/blob/master/CMPE-283-Assignment-4/shadow.txt
+	
+<h4> Output when EPT = non zero (Nested Paging)</h4>
+	
+![image](https://user-images.githubusercontent.com/89494219/145183459-22cf0bae-b61f-4234-b512-b07f6b3ff123.png) <br>
+
+
+See full output here: https://github.com/kajaldhanotia/linux/blob/master/CMPE-283-Assignment-4/nested.txt
+	
+<h3>Question 3: What did you learn from the count of exits? Was the count what you expected? If not, why not?</h3>
 
 Exit Code | Nested Paging | Shadow Paging
 | :---: | :---: | :---:
@@ -216,9 +222,9 @@ Exit Code | Nested Paging | Shadow Paging
 55 | 3 | 6
 58 | 0 | 65707
 
-As per above observation, some of the exits in both nested paging and shadow paging. With ept=0 which is shadow paging, the exit counts 0, 10, 14, 28, 58 amplifies. This is to be anticipated because there are two levels of address translations between the guest VM and the host VM when shadow paging is enabled. The Exit Code Number 28 occurs far more frequently in shadow paging mode.
+As per above observations, the number of exits change for both nested paging and shadow paging. With ept=0 which is shadow paging, the exit counts of exit reason 0, 10, 14, 28, 58 amplifies. This is because there are overheads associated when shadow paging is enabled. It is noticed that the exit code 28 occurs far more frequently in shadow paging mode as compared to nested paging.
 	
 
-<h3>Question 4:</h3>
+<h3>Question 4: What changed between the two runs (ept vs no-ept)?</h3>
 
-While comparing the values of total exit count with ept and without ept we saw the expected output. When the parameter ept=0 is changed, the exit counts of number 0 and 10 significantly increases. The reason for such significant increase is that the shadow paging employs a two-layer translation from guest physical address to host physical address and it causes additional VM exits. The shadow paging must maintain two page tables because it requires extra memory. Whereas for nested paging the visitor's physical address is retrieved directly from the guest page table and the host's physical address is collected automatically from the VMM mapping table which causes less VM Exits.
+While comparing the values of total exit count with ept and without ept, we saw that when the parameter ept=0 is changed, the exit counts for few exit numbers significantly increases. The reason being that shadow paging uses a two-layer translation from guest physical address to host physical address and it involved more VMM involvement which causes additional VM exits. The shadow paging maintains a extra shadow page table which requires extra memory. On the other hand, for nested paging there are two page directories- one to guest virtual addr. to guest physical addr. and anothet to map guest physical addr. to host physical addr. This requires no intervention from VMM, and results in less VM Exits.
