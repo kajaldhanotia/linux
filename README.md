@@ -200,8 +200,25 @@ https://github.com/kajaldhanotia/linux/blob/master/CMPE-283-Assignment-4/nested.
 	
 <h3>Question 3:</h3>
 
+Exit Code | Nested Paging | Shadow Paging
+| :---: | :---: | :---:
+0 | 12035 | 857331
+10 | 138268 | 280938
+14 | 0 | 101493
+28 | 25697 | 5732292
+29 | 2 | 4
+30 | 148345 | 295253
+31 | 1531 | 3306
+46 | 6 | 12
+47 | 2 | 4
+48 | 383853 | 383853
+54 | 3 | 7
+55 | 3 | 6
+58 | 0 | 65707
+
+As per above observation, some of the exits in both nested paging and shadow paging. With ept=0 which is shadow paging, the exit counts 0, 10, 14, 28, 58 amplifies. This is to be anticipated because there are two levels of address translations between the guest VM and the host VM when shadow paging is enabled. The Exit Code Number 28 occurs far more frequently in shadow paging mode.
 	
 
 <h3>Question 4:</h3>
 
-While comparing the values of total exit count with ept and without ept we can see the expected output. When the parameter ept=0 is changed, the exit counts of number 0 and 10 significantly increases. The reason for such significant increase is that the guest can perform the page table operations without any intervention in nested paging. So with the shadow paging, the hypervisor intervention resumes
+While comparing the values of total exit count with ept and without ept we saw the expected output. When the parameter ept=0 is changed, the exit counts of number 0 and 10 significantly increases. The reason for such significant increase is that the shadow paging employs a two-layer translation from guest physical address to host physical address and it causes additional VM exits. The shadow paging must maintain two page tables because it requires extra memory. Whereas for nested paging the visitor's physical address is retrieved directly from the guest page table and the host's physical address is collected automatically from the VMM mapping table which causes less VM Exits.
